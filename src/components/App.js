@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class App extends Component {
   state = {
@@ -13,7 +14,19 @@ class App extends Component {
   }
 
   handleClick = () => {
-    console.log(this.state.zipCode);
+    let apiUrl = 'http://api.openweathermap.org/data/2.5/';
+    apiUrl += `weather?zip=${this.state.zipCode},us&units=imperial`;
+    apiUrl += `&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`;
+
+    axios.get(apiUrl)
+      .then(response => {
+        this.setState({
+          apiData: response.data,
+        });
+      })
+      .catch(error => {
+        console.log('Error getting weather data', error);
+      });
   }
 
   render() {
@@ -23,7 +36,7 @@ class App extends Component {
         <input onChange={this.handleChange} />
         <button onClick={this.handleClick}>Get Weather</button>
         <div>
-          <p>City</p>
+          <p>City{this.state.apiData.name}</p>
           <img src="" alt="" />
           <p>Temp</p>
           <p>High</p>
