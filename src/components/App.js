@@ -6,12 +6,22 @@ class App extends Component {
     apiData: [],
   }
 
+  handleChange = event => {
+    this.setState({
+      zipCode: event.target.value,
+    });
+  }
+
+  handleClick = () => {
+    console.log(this.state.zipCode);
+  }
+
   render() {
     return (
       <div className="App">
         <h1>Weather</h1>
-        <input />
-        <button>Get Weather</button>
+        <input onChange={this.handleChange} />
+        <button onClick={this.handleClick}>Get Weather</button>
         <div>
           <p>City</p>
           <img src="" alt="" />
