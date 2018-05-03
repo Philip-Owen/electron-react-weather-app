@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import Weather from './Weather';
+
 class App extends Component {
   state = {
     zipCode: '',
-    apiData: [],
+    apiData: {},
   }
 
   handleChange = event => {
@@ -32,18 +34,22 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Weather</h1>
-        <input onChange={this.handleChange} />
-        <button onClick={this.handleClick}>Get Weather</button>
         <div>
-          <p>City{this.state.apiData.name}</p>
-          <img src="" alt="" />
-          <p>Temp</p>
-          <p>High</p>
-          <p>Low</p>
-          <p>Wind Speed</p>
-          <p>Wind Direction</p>
+          <h1>Weather</h1>
+          <input onChange={this.handleChange} />
+          <button onClick={this.handleClick}>Get Weather</button>
         </div>
+        {
+          this.state.apiData.main ?
+            <Weather
+              name={this.state.apiData.name}
+              icon={this.state.apiData.weather[0].icon}
+              temp={this.state.apiData.main.temp}
+              windSpeed={this.state.apiData.wind.speed}
+              windDirection={this.state.apiData.wind.deg}
+            /> :
+            <div />
+        }
       </div>
     );
   }
