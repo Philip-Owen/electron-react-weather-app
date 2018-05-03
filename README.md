@@ -1,1 +1,1 @@
-# electron-react-weather-app
+#Electron/React Weather app
